@@ -1,101 +1,111 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+    var appName = "Categories";
+}
+<!DOCTYPE html>
+<html lang="bg">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Categories_25</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Categories_25.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - @appName</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
     <style>
         body {
-            /* Прозрачен фон с градиент */
-            background: linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(173,216,230,0.8)),
-                        url('/images/background.jpg') no-repeat center center fixed;
-            background-size: cover;
+            /* Solid gradient background (no transparency or white) /
+                    background: linear-gradient(135deg, #1e3c72, #2a5298);
+                    background-attachment: fixed;
+                    background-size: cover;
+                    color: #fff;
+                    min-height: 100vh;
+                }
+
+                .navbar {
+                    background-color: #2a5298 !important; / solid dark blue navbar */
         }
 
-        .navbar-custom {
-            background: rgba(255, 255, 255, 0.6); /* прозрачен ефект */
-            backdrop-filter: blur(6px);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        .navbar a, .navbar-brand, .navbar-nav .nav-link {
+            color: #fff !important;
         }
 
-        .navbar-brand img {
-            height: 40px;
-            border-radius: 8px;
+            .navbar a:hover, .navbar-nav .nav-link:hover {
+                color: #dcdcdc !important;
+            }
+
+        .logo-img {
+            height: 36px;
+            width: 36px;
+            object-fit: contain;
+            margin-right: .5rem;
         }
 
-        .dropdown-menu {
-            background-color: rgba(255,255,255,0.9);
+        footer {
+            color: #fff;
         }
     </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light navbar-custom border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <!-- Лого, водещо към началната страница -->
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/images/logo.png" alt="Logo" />
+        <nav class="navbar navbar-expand-lg border-bottom">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" asp-controller="Home" asp-action="Index">
+                    <img src="/images/logo.png" alt="Logo" class="logo-img" />
+                    <span>@appName</span>
                 </a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                        <!-- Начална страница -->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Начало</a>
                         </li>
 
-                        <!-- Падащо меню за Категории -->
+                        <!-- Dropdown Категории -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="categoriesDropdown"
-                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
                                 Категории
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
                                 <li><a class="dropdown-item" asp-controller="Categories" asp-action="Index">Всички категории</a></li>
-                                <li><a class="dropdown-item" asp-controller="Categories" asp-action="Details" asp-route-id="1">Технологии</a></li>
-                                <li><a class="dropdown-item" asp-controller="Categories" asp-action="Details" asp-route-id="2">Култура</a></li>
-                                <li><a class="dropdown-item" asp-controller="Categories" asp-action="Details" asp-route-id="3">Спорт</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <!-- По желание: статични линкове към конкретни категории
+                                <li><a class="dropdown-item" asp-controller="Categories" asp-action="Details" asp-route-id="1">Електроника</a></li>
+                                <li><a class="dropdown-item" asp-controller="Categories" asp-action="Details" asp-route-id="2">Дрехи</a></li>
+                                -->
                             </ul>
                         </li>
 
-                    </ul>
-
-                    <!-- Бутон за вписване -->
-                    <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Login">Вписване</a>
+                            <a class="nav-link" asp-controller="Products" asp-action="Index">Продукти</a>
                         </li>
                     </ul>
+
+                    <div class="d-flex">
+                        <a class="btn btn-outline-light" href="/Account/Login">Вписване</a>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
 
-    <div class="container">
+    <div class="container py-4">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top py-3 text-center small">
         <div class="container">
-            &copy; @DateTime.Now.Year - Categories_25 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            © @DateTime.Now.Year - @appName
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

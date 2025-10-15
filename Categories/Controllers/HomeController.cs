@@ -3,7 +3,8 @@ using Categories.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Categories_25.Controllers
+namespace Categories.Controllers
+
 {
     public class HomeController : Controller
     {
